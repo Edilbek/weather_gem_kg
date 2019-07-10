@@ -3,30 +3,36 @@ require "httparty"
 
 module ApiXu
   class TodayWeather
-    @data =  HTTParty.get("http://api.apixu.com/v1/forecast.json?key=6d79fff9ef764b8c85d61836190907&q=Bishkek&days=5")
-    def self.location
-      @data["location"]["name"]
+    def initialize(city)
+      @city = city
+      @data =  HTTParty.get("http://api.apixu.com/v1/forecast.json?key=6d79fff9ef764b8c85d61836190907&q=#{@city}&days=5")
+    end
+    def location
+      puts @data["location"]["name"]
     end
     
-    def self.temperature
+    def temperature
       @temper = @data["current"]["temp_c"]
-      @temper.to_i
+      puts @temper.to_i
     end
     
-    def self.time
+    def time
       @time = @data["location"]["localtime"]
       now_time = Time.parse(@time)
       now_time.ctime.slice(0, 16)
     end
 
-    def self.condition
+    def condition
       @data["current"]["condition"]["text"]      
     end    
   end
   
   class FiveDayWeather
-    @data =  HTTParty.get("http://api.apixu.com/v1/forecast.json?key=6d79fff9ef764b8c85d61836190907&q=Bishkek&days=5")
-    def self.fiveday_weather
+    def initialize(city)
+      @city = city
+      @data =  HTTParty.get("http://api.apixu.com/v1/forecast.json?key=6d79fff9ef764b8c85d61836190907&q=#{@city}&days=5")
+    end
+    def fiveday_weather
       five = []
       one = []
       days = @data["forecast"]["forecastday"]
@@ -46,31 +52,38 @@ end
 
 module DarkSky
   class TodayWeather
-    @data = HTTParty.get("https://api.darksky.net/forecast/0a06f48b71537e4e72554c3f8d39d234/42.862,74.557")
-    def self.location
-      @data["timezone"]
+    def initialize(city)
+      @city = city
+      @data = HTTParty.get("https://api.darksky.net/forecast/0a06f48b71537e4e72554c3f8d39d234/#{@city}")
+    end
+    def location
+      puts @data["timezone"]
     end
     
-    def self.temperature
+    def temperature
       farenheit = @data["currently"]["temperature"]
       celsius = (farenheit - 32) * 5/9
-      celsius.to_i
+      puts celsius.to_i
     end
     
-    def self.time
+    def time
       time = @data["currently"]["time"]
       local_time = Time.at(time)
       local_time.ctime.to_s.slice(0, 16)
     end
 
-    def self.condition
-      @data["currently"]["summary"]    
+    def condition
+      puts @data["currently"]["summary"]    
     end  
   end
 
   class FiveDayWeather
-    @data = HTTParty.get("https://api.darksky.net/forecast/0a06f48b71537e4e72554c3f8d39d234/42.862,74.557")
-    def self.fiveday_weather
+    def initialize(city)
+      @city = city
+      @data = HTTParty.get("https://api.darksky.net/forecast/0a06f48b71537e4e72554c3f8d39d234/#{@city}")
+    end
+  
+    def fiveday_weather
       five = []
       one = []
       location = @data["timezone"]
@@ -93,13 +106,21 @@ module DarkSky
     end
   end
 end
+# var = ApiXu::TodayWeather.new("Talas")
+# var.location
+# var.temperature
 
-ApiXu::FiveDayWeather.fiveday_weather
+# var = ApiXu::FiveDayWeather.new("Talas")
+# var.fiveday_weather
+# ApiXu::TodayWeather.location
 # puts ApiXu::TodayWeather.location
 # puts ApiXu::TodayWeather.temperature
 # puts ApiXu::TodayWeather.time
 # puts ApiXu::TodayWeather.condition
-
+# puts '----'
+var = DarkSky::TodayWeather.new("42.87,74.6")
+var.location
+# var.temperature
 # DarkSky::FiveDayWeather.fiveday_weather
 # puts DarkSky::TodayWeather.location
 # puts DarkSky::TodayWeather.temperature
