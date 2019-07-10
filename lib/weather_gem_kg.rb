@@ -43,7 +43,9 @@ module ApiXu
         one << day["day"]["maxtemp_c"].to_i
         one << day["day"]["mintemp_c"].to_i 
         one << day["day"]["condition"]["text"]
-        five << one
+      end
+      one.each_slice(4) do |i|
+        five << i
       end
       return five
     end
@@ -100,8 +102,10 @@ module DarkSky
         one << high_celsius.to_i
         one << low_celsius.to_i
         one << day["summary"]
-        five << one
       end 
+      one.each_slice(4) do |i|
+        five << i
+      end
       return five
     end
   end
@@ -110,7 +114,7 @@ end
 # var.location
 # var.temperature
 
-# var = ApiXu::FiveDayWeather.new("Talas")
+# var = ApiXu::FiveDayWeather.new("Bishkek")
 # var.fiveday_weather
 # ApiXu::TodayWeather.location
 # puts ApiXu::TodayWeather.location
@@ -118,8 +122,9 @@ end
 # puts ApiXu::TodayWeather.time
 # puts ApiXu::TodayWeather.condition
 # puts '----'
-var = DarkSky::TodayWeather.new("42.87,74.6")
-var.location
+# var = DarkSky::FiveDayWeather.new("42.87,74.6")
+# var.fiveday_weather
+# var.location
 # var.temperature
 # DarkSky::FiveDayWeather.fiveday_weather
 # puts DarkSky::TodayWeather.location
