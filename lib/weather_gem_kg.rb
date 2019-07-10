@@ -8,12 +8,12 @@ module ApiXu
       @data =  HTTParty.get("http://api.apixu.com/v1/forecast.json?key=6d79fff9ef764b8c85d61836190907&q=#{@city}&days=5")
     end
     def location
-      puts @data["location"]["name"]
+      @data["location"]["name"]
     end
     
     def temperature
       @temper = @data["current"]["temp_c"]
-      puts @temper.to_i
+      @temper.to_i
     end
     
     def time
@@ -57,13 +57,13 @@ module DarkSky
       @data = HTTParty.get("https://api.darksky.net/forecast/0a06f48b71537e4e72554c3f8d39d234/#{@city}")
     end
     def location
-      puts @data["timezone"]
+      @data["timezone"]
     end
     
     def temperature
       farenheit = @data["currently"]["temperature"]
       celsius = (farenheit - 32) * 5/9
-      puts celsius.to_i
+      celsius.to_i
     end
     
     def time
@@ -73,7 +73,7 @@ module DarkSky
     end
 
     def condition
-      puts @data["currently"]["summary"]    
+      @data["currently"]["summary"]    
     end  
   end
 
