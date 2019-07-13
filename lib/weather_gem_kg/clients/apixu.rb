@@ -1,7 +1,9 @@
+require_relative 'config'
+
 module WeatherGemKg
   module Clients
     class Apixu
-      API_KEY = '6d79fff9ef764b8c85d61836190907'
+      API_KEY = Key.config.api_key_apixu
 
       def initialize
         @base_url = "http://api.apixu.com/v1/forecast.json?key=#{API_KEY}"
