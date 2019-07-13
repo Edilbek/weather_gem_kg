@@ -12,12 +12,11 @@ module WeatherGemKg
       def get_weather(city, days)
         @data = get_weather_info(city, days)
 
-        # Skip the previous day
-        @data.dig("daily", "data")[1..days].map do |f|
+        @data.dig("daily", "data")[0...days].map do |f|
           {
-            date: f["time"],
-            max_temp: f["temperatureHigh"],
-            min_temp: f["temperatureLow"],
+            date: Time.at(f['time']).ctime.slice(0, 10),
+            max_temp: ((f["temperatureHigh"] - 32) * 5 / 9).round(1),
+            min_temp: ((f["temperatureLow"] - 32) * 5 / 9).round(1),
             condition: f["summary"]
           }
         end

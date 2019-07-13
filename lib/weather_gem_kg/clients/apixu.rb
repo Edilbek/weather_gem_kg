@@ -11,12 +11,10 @@ module WeatherGemKg
 
       def get_weather(city, days)
         @data = get_weather_info(city, days)
-
         @data.dig('forecast', 'forecastday').map do |f|
           day = f.dig('day')
-
           {
-            date: f['date'],
+            date: Time.at(f['date_epoch']).ctime.slice(0, 10),
             max_temp: day['maxtemp_c'],
             min_temp: day['mintemp_c'],
             condition: day.dig('condition', 'text')
