@@ -1,9 +1,10 @@
 require "geocoder"
+require_relative 'config'
 
 module WeatherGemKg
   module Clients
     class DarkSky
-      API_KEY = Key.config.api_key_dark
+      API_KEY = WeatherGem.config.api_key_dark
 
       def initialize
         @base_url = "https://api.darksky.net/forecast/#{API_KEY}"
