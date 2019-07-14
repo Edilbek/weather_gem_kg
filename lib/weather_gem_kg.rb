@@ -3,6 +3,7 @@ require "weather_gem_kg/version"
 require "weather_gem_kg/generator"
 
 module WeatherGemKg
+  extend Configuration
 end
 
 # weather1 = WeatherGemKg::Generator.new('Bishkek', 1, WeatherGemKg::Clients::Apixu.new)
