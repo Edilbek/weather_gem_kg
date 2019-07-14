@@ -6,7 +6,7 @@ module WeatherGemKg
 end
 
 weather1 = WeatherGemKg::Generator.new('Bishkek', 1, WeatherGemKg::Clients::Apixu.new)
-puts weather1.generate_me
+weather1.generate_me
 #
 # weather2 = WeatherGemKg::Generator.new('Bishkek', 1, WeatherGemKg::Clients::DarkSky.new)
 # puts weather2.generate_me
