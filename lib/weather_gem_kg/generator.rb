@@ -8,11 +8,7 @@ module WeatherGemKg
     def initialize(city, day, generator)
       @city = city
       @day = day
-      if generator == 'Apixu'
-        @generator = WeatherGemKg::Clients::Apixu.new
-      elsif generator == 'DarkSky'
-        @generator = WeatherGemKg::Clients::DarkSky.new
-      end
+      @generator = generator
     end
 
     def generate_me
