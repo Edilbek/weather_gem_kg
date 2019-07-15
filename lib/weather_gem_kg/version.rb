@@ -1,3 +1,3 @@
 module WeatherGemKg
-  VERSION = "0.28.0"
+  VERSION = "0.30.0"
 end
