@@ -1,17 +1,37 @@
+# module WeatherGemKg
+#   module Configuration
+#     Config = Struct.new :api_key_apixu, :api_key_dark
+#
+#     class << self
+#       attr_accessor :api_key_apixu, :api_key_dark
+#     end
+#
+#     def self.configure(&config_block)
+#       config_block.call config
+#     end
+#
+#     def self.config
+#       @config ||= Config.new
+#     end
+#   end
+# end
+
 module WeatherGemKg
-  module Configuration
-    Config = Struct.new :api_key_apixu, :api_key_dark
+  class << self
+    attr_accessor :configuration
+  end
 
-    class << self
-      attr_accessor :api_key_apixu, :api_key_dark
-    end
+  def self.configure
+    self.configuration ||= Configuration.new
+    yield(configuration)
+  end
 
-    def self.configure(&config_block)
-      config_block.call config
-    end
+  class Configuration
+    attr_accessor :api_key_apixu, :api_key_dark
 
-    def self.config
-      @config ||= Config.new
+    def initialize
+      @api_key_apixu = nil
+      @api_key_dark = nil
     end
   end
 end
