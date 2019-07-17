@@ -4,3 +4,7 @@ source "https://rubygems.org"
 gemspec
 gem "httparty"
 gem "geocoder"
+group :test do
+  gem 'webmock'
+  gem 'vcr'
+end
