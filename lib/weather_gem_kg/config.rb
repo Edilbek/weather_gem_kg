@@ -1,22 +1,33 @@
+# frozen_string_literal: true
+
 module WeatherGemKg
   class << self
-    attr_accessor :configuration
+    attr_writer :configuration
   end
 
   def self.configuration
-    @configuration ||=  Configuration.new
+    @configuration ||= Configuration.new
   end
 
   def self.configure
     yield(configuration) if block_given?
   end
 
+  def self.reset_configuration!
+    @configuration = Configuration.new
+  end
+
   class Configuration
-    attr_accessor :api_key_apixu, :api_key_dark
+    attr_writer :client
+    attr_accessor :default_days
 
     def initialize
-      @api_key_apixu = nil
-      @api_key_dark = nil
+      @default_days = 1
+      @client = nil
+    end
+
+    def client
+      @client ||= Clients::OpenMeteo.new
     end
   end
 end

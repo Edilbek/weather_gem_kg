@@ -1,43 +1,71 @@
 # WeatherGemKg
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/weather_gem_kg`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Ruby gem for daily city weather forecasts powered by [Open-Meteo](https://open-meteo.com/) (no API key required).
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'weather_gem_kg'
+gem "weather_gem_kg"
 ```
 
 And then execute:
 
-    $ bundle
+```bash
+bundle install
+```
 
-Or install it yourself as:
+Or install it yourself:
 
-    $ gem install weather_gem_kg
+```bash
+gem install weather_gem_kg
+```
+
+### Rails
+
+```bash
+rails generate weather_gem_kg:install
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require "weather_gem_kg"
+
+days = WeatherGemKg.forecast(city: "Bishkek", days: 3)
+
+days.each do |day|
+  puts "#{day.date}: #{day.min_temp}–#{day.max_temp}°C, #{day.condition}"
+end
+```
+
+Each day is a `WeatherGemKg::ForecastDay` with `date`, `max_temp`, `min_temp`, and `condition`.
+
+### Configuration
+
+```ruby
+WeatherGemKg.configure do |config|
+  config.default_days = 3
+  # config.client = WeatherGemKg::Clients::OpenMeteo.new
+end
+```
+
+### Custom client
+
+Any object responding to `#forecast(city:, days:)` and returning an array of `ForecastDay` can be passed:
+
+```ruby
+WeatherGemKg.forecast(city: "Bishkek", days: 1, client: MyClient.new)
+```
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/weather_gem_kg. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+```bash
+bundle install
+bundle exec rake
+```
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the WeatherGemKg project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/weather_gem_kg/blob/master/CODE_OF_CONDUCT.md).
+MIT
