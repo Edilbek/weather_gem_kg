@@ -4,6 +4,7 @@ source "https://rubygems.org"
 gemspec
 gem "httparty"
 gem "geocoder"
+gem "logger" # required by geocoder on Ruby 4+
 group :test do
   gem 'webmock'
   gem 'vcr'

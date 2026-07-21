@@ -4,10 +4,9 @@ require_relative '../config'
 module WeatherGemKg
   module Clients
     class DarkSky
-      API_KEY = WeatherGemKg.configuration.api_key_dark
-
       def initialize
-        @base_url = "https://api.darksky.net/forecast/#{API_KEY}"
+        api_key = WeatherGemKg.configuration.api_key_dark
+        @base_url = "https://api.darksky.net/forecast/#{api_key}"
       end
 
       def get_weather(city, days)

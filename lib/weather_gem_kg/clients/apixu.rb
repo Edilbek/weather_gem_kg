@@ -3,10 +3,9 @@ require_relative '../config'
 module WeatherGemKg
   module Clients
     class Apixu
-      API_KEY = WeatherGemKg.configuration.api_key_apixu
-
       def initialize
-        @base_url = "http://api.apixu.com/v1/forecast.json?key=#{API_KEY}"
+        api_key = WeatherGemKg.configuration.api_key_apixu
+        @base_url = "http://api.apixu.com/v1/forecast.json?key=#{api_key}"
       end
 
       def get_weather(city, days)
