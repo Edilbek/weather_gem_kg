@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    weather_gem_kg (1.0.0)
+    weather_gem_kg (1.0.1)
       httparty (~> 0.24)
 
 GEM
